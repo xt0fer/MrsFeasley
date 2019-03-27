@@ -1,0 +1,17 @@
+type User {
+  id: ID! @unique
+  name: String!
+}
+
+type Note {
+  id: ID! @unique
+  title: String!
+  body: String!
+  tags: [Tag!]!
+}
+
+type Tag {
+  id: ID! @unique
+  title: String!
+  notes: [Note!]!
+}
