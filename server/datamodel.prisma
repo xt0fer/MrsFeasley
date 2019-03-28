@@ -8,10 +8,13 @@ type Note {
   title: String!
   body: String!
   tags: [Tag!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Tag {
   id: ID! @unique
   title: String!
   notes: [Note!]!
-}
+  createdAt: DateTime!
+  updatedAt: DateTime!}

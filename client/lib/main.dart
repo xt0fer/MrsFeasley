@@ -1,5 +1,7 @@
+import 'package:client/editor.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/intl.dart';
 
 import './mutations/addNote.dart' as mutations;
 import './queries/readNotes.dart' as queries;
@@ -80,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Query(
         queries.readNotes,
-        pollInterval: 1,
+        pollInterval: 10,
         builder: ({
           bool loading,
           Map data,
@@ -95,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
 
           // it can be either Map or List
-          List notes = data['viewer']['notes'];
+          List notes = data['notes'];
 
           return ListView.builder(
             itemCount: notes.length,
@@ -111,46 +113,58 @@ class _MyHomePageState extends State<MyHomePage> {
                   Exception error,
                 }) {
                   if (data.isNotEmpty) {
-                    repository['viewerHasStarred'] =
-                        data['addNote']['noteable']['viewerHasStarred'];
+                    // repository['viewerHasStarred'] =
+                    //     data['addNote']['noteable']['viewerHasStarred'];
                   }
 
                   return ListTile(
-                    leading: repository['viewerHasStarred']
-                        ? const Icon(Icons.star, color: Colors.amber)
-                        : const Icon(Icons.star_border),
-                    title: Text(repository['name']),
+                    leading: const Icon(Icons.note, color: Colors.amber),
+                    title: Text(repository['title'] + repository['updatedAt']),
+                    subtitle: Text(repository['body']),
                     // NOTE: optimistic ui updates are not implemented yet, therefore changes may take upto 1 second to show.
                     onTap: () {
-                      // addNote({
-                      //   'noteableId': repository['id'],
-                      // });
+                      // repository['id'] //
                     },
                   );
                 },
-                onCompleted: (Map<String, dynamic> data) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Thanks for your star!'),
-                        actions: <Widget>[
-                          SimpleDialogOption(
-                            child: Text('Dismiss'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
-                },
+                // onCompleted: (Map<String, dynamic> data) {
+                //   showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialog(
+                //         title: Text('Thanks for your star!'),
+                //         actions: <Widget>[
+                //           SimpleDialogOption(
+                //             child: Text('Dismiss'),
+                //             onPressed: () {
+                //               Navigator.of(context).pop();
+                //             },
+                //           )
+                //         ],
+                //       );
+                //     },
+                //   );
+                // },
               );
             },
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.note_add),
+        onPressed: _changeText,
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+      ),
     );
+  }
+
+  _changeText() {
+    setState(() {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => EditorWidget()),
+      // );
+    });
   }
 }
