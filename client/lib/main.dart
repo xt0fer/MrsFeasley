@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   return ListTile(
                     leading: const Icon(Icons.note, color: Colors.amber),
-                    title: Text(repository['title'] + repository['updatedAt']),
+                    title: Text(repository['title'] + " " + repository['updatedAt']),
                     subtitle: Text(repository['body']),
                     // NOTE: optimistic ui updates are not implemented yet, therefore changes may take upto 1 second to show.
                     onTap: () {
