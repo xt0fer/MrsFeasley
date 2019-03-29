@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return ListView.builder(
             itemCount: notes.length,
             itemBuilder: (context, index) {
-              final repository = notes[index];
+              final noteList = notes[index];
 
               return Mutation(
                 mutations.addNote,
@@ -113,17 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   Exception error,
                 }) {
                   if (data.isNotEmpty) {
-                    // repository['viewerHasStarred'] =
+                    // noteList['viewerHasStarred'] =
                     //     data['addNote']['noteable']['viewerHasStarred'];
                   }
 
                   return ListTile(
                     leading: const Icon(Icons.note, color: Colors.amber),
-                    title: Text(repository['title'] + " " + repository['updatedAt']),
-                    subtitle: Text(repository['body']),
+                    title: Text(noteList['title'] + " " + noteList['updatedAt']),
+                    subtitle: Text(noteList['body']),
                     // NOTE: optimistic ui updates are not implemented yet, therefore changes may take upto 1 second to show.
                     onTap: () {
-                      // repository['id'] //
+                      // noteList['id'] //
                     },
                   );
                 },

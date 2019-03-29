@@ -17,4 +17,5 @@ type Tag {
   title: String!
   notes: [Note!]!
   createdAt: DateTime!
-  updatedAt: DateTime!}
+  updatedAt: DateTime!
+}
