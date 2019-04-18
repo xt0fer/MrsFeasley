@@ -139,7 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ).then((result) {
                         print("result ");
                         print(result);
-                        if (result != null) notes = result.toString() as List;
+                        if (result != null) {
+                          noteList['body'] = result;
+                          // save changed note here.
+                          
+                        }
                       });
                     },
                   );

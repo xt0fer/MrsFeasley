@@ -19,3 +19,13 @@ type Tag {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
+
+# input NoteInput {
+#   title: String
+#   body: String
+# }
+
+# type Mutation {
+#   createNote(input: NoteInput): Note
+#   updateNote(id: ID!, input: NoteInput): Note
+# }
