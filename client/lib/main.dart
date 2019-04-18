@@ -119,32 +119,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   return ListTile(
                     leading: const Icon(Icons.note, color: Colors.amber),
-                    title: Text(noteList['title'] + " " + noteList['updatedAt']),
+                    title:
+                        Text(noteList['title'] + " " + noteList['updatedAt']),
                     subtitle: Text(noteList['body']),
                     // NOTE: optimistic ui updates are not implemented yet, therefore changes may take upto 1 second to show.
                     onTap: () {
                       // noteList['id'] //
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditorWidget(
+                                title: noteList['title'] +
+                                    " " +
+                                    noteList['updatedAt'],
+                                json: noteList['body'].toString(),
+                              ),
+                          fullscreenDialog: true,
+                        ),
+                      ).then((result) {
+                        print("result ");
+                        print(result);
+                        if (result != null) notes = result.toString() as List;
+                      });
                     },
                   );
                 },
-                // onCompleted: (Map<String, dynamic> data) {
-                //   showDialog(
-                //     context: context,
-                //     builder: (BuildContext context) {
-                //       return AlertDialog(
-                //         title: Text('Thanks for your star!'),
-                //         actions: <Widget>[
-                //           SimpleDialogOption(
-                //             child: Text('Dismiss'),
-                //             onPressed: () {
-                //               Navigator.of(context).pop();
-                //             },
-                //           )
-                //         ],
-                //       );
-                //     },
-                //   );
-                // },
               );
             },
           );
@@ -152,19 +151,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.note_add),
-        onPressed: _changeText,
+        onPressed: _newText,
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
     );
   }
 
-  _changeText() {
+  _newText() {
     setState(() {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => EditorWidget()),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditorWidget(title: "New Note", json: "")),
+      );
     });
   }
 }
